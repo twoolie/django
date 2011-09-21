@@ -87,6 +87,8 @@ class Group(models.Model):
         return self.name
 
 class UserManager(models.Manager):
+    use_for_related_fields = True
+
     def create_user(self, username, email=None, password=None):
         """
         Creates and saves a User with the given username, email and password.
@@ -127,6 +129,9 @@ class UserManager(models.Manager):
         # Note that default value of allowed_chars does not have "I" or letters
         # that look like it -- just to avoid confusion.
         return get_random_string(length, allowed_chars)
+
+    def active(self):
+        return self.filter(active=False)
 
 
 # A few helper functions for common logic between User and AnonymousUser.
