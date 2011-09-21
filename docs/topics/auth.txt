@@ -308,6 +308,23 @@ Manager functions
             * ``o``, ``O``, and ``0`` (uppercase letter o, lowercase letter o,
               and zero)
 
+    .. method:: models.UserManager.active()
+        .. versionadded:: 1.4
+
+        Returns a queryset that contains the subset of all users who are marked
+        active. This method is also available through relatedmanagers. 
+
+        .. code-block:: python
+
+            >>> active_users = User.objects.active()
+            >>> mods = forum.moderators.active()
+
+        This also satisfies the common use case of showing only active users in templates.::
+
+           {% for moderator in forum.moderators.active %}
+               {{ moderator.username }}{% if not forloop.last %},{% endif %}
+           {% endfor %}
+
 Basic usage
 -----------
 
